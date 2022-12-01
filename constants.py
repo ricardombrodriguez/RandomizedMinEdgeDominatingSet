@@ -1,0 +1,11 @@
+# @Author: Ricardo Rodriguez
+
+MIN_AXIS_VALUE = 1
+MAX_AXIS_VALUE = 100
+
+MAX_NUMBER_EDGES = [12.5, 25, 50, 75]
+
+SEED = 98388
+
+MIN_GRAPH_VERTICES = 4
+
