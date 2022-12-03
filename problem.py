@@ -2,6 +2,8 @@
 
 from itertools import chain, combinations
 from time import time
+from constants import RANDOMIZED_ITERATIONS
+from random import randint
 
 class Problem:
 
@@ -10,7 +12,9 @@ class Problem:
         self.type = search_type
         self.graph = graph
         start = time()
-        result = self.greedy_search(self.graph.adjacency_list) if search_type == "greedy" else self.exaustive_search()
+        result = self.greedy_search(self.graph.adjacency_list) if search_type == "greedy" else \
+                                       self.exaustive_search() if search_type == "exaustive" else \
+                                       self.randomized_search()
         self.result = result[0]
         self.counter = result[1]
         self.time = time()-start
@@ -52,6 +56,30 @@ class Problem:
             greedy = self.greedy_search(adjacency_list, counter)
             return ( [edge] + greedy[0], greedy[1])
 
+    def randomized_search(self):
+        counter = 0
+        iteration = 0
+        best_result = []
+        while iteration < RANDOMIZED_ITERATIONS:
+            result, iteration_counter = self.random_iteration(edges=list(self.graph.edges))
+            best_result = result if len(result) < len(best_result) or not best_result else best_result
+            iteration += 1
+            counter += iteration_counter
+        print(self.graph.edges)
+        print(best_result)
+        print("=====")
+        return (best_result, counter)
+
+    def random_iteration(self, edges):
+        result = []
+        counter = 0
+        while edges != []:
+            edge = edges.pop(randint(0,len(edges)-1))
+            edges = [e for e in edges if e[0] not in edge and e[1] not in edge]
+            result.append(edge)
+            counter += 4
+        return result, counter
+        
 
     def verify_edge_dominating_set(self, edges, edge):
 

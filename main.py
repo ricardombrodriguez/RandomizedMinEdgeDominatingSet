@@ -30,12 +30,16 @@ def create_graphs():
             print()
             print(f"num vertices: {vertices} | edge percentage: {edge_percentage}%)")
             g = Graph(vertices,edge_percentage)
-            greedy = Problem(g,"greedy")
-            save_result(greedy,edge_percentage)
-            save_graph(greedy,edge_percentage)
-            exaustive = Problem(g,"exaustive")
-            save_result(exaustive,edge_percentage)
-            save_graph(exaustive,edge_percentage)
+            # greedy = Problem(g,"greedy")
+            # save_result(greedy,edge_percentage)
+            # save_graph(greedy,edge_percentage)
+            # exaustive = Problem(g,"exaustive")
+            # save_result(exaustive,edge_percentage)
+            # save_graph(exaustive,edge_percentage)
+            randomized = Problem(g, "randomized")
+            save_result(randomized,edge_percentage)
+            save_graph(randomized,edge_percentage)
+
         vertices += 1 
 
 def save_result(p, edge_percentage):
