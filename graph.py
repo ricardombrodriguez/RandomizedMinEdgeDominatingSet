@@ -8,12 +8,13 @@ seed(SEED)
 
 class Graph:
 
-    def __init__(self, num_vertices, edge_percentage):
+    def __init__(self, num_vertices=0, edge_percentage=None):
 
         self.num_vertices = num_vertices
         self.edge_percentage = edge_percentage
-        self.create_vertices()
-        self.create_edges()
+        if edge_percentage:
+            self.create_vertices()
+            self.create_edges()
 
     def create_vertices(self):
         self.vertices = {}
@@ -26,7 +27,7 @@ class Graph:
     
     def is_distant(self,x,y):
         distances = [ sqrt((x-v[0])**2 + (y-v[1])**2) for v in self.vertices.values()]
-        return all(d > 1 for d in distances)
+        return all(d > 2 for d in distances)
 
     def create_edges(self):
 
@@ -53,7 +54,5 @@ class Graph:
                     break
                 elif e1 == e2:
                     unconnected_vertices.append(e1)
-
-
         self.edges = []
         [ self.edges.append((v1,v2)) for v1, edge_list in self.adjacency_list.items() for v2 in edge_list if (v2,v1) not in self.edges ]

@@ -3,14 +3,11 @@
 from graph import Graph
 from constants import *
 from problem import Problem
-
 import os
-
 import networkx as nx
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
 
 
 def create_graphs():
@@ -21,7 +18,7 @@ def create_graphs():
     if not os.path.exists('results.txt'):
         os.mknod('results.txt')
         with open('results.txt', 'a') as results:
-            results.write("{: <12} | {: <10} | {: <15} | {: <16} | {: >20}\n".format("Search type","Vertices","Edge percentage","Basic operations","Time (s)"))
+            results.write("{: <12} | {: <10} | {: <15} | {: <16} | {: <15} | {: <15} | {: >20}\n".format("Search type","Vertices","Edge percentage","Basic operations","Set Lenght","Solutions Tested","Time (s)"))
 
     vertices = MIN_GRAPH_VERTICES
     
@@ -30,12 +27,12 @@ def create_graphs():
             print()
             print(f"num vertices: {vertices} | edge percentage: {edge_percentage}%)")
             g = Graph(vertices,edge_percentage)
-            # greedy = Problem(g,"greedy")
-            # save_result(greedy,edge_percentage)
-            # save_graph(greedy,edge_percentage)
-            # exaustive = Problem(g,"exaustive")
-            # save_result(exaustive,edge_percentage)
-            # save_graph(exaustive,edge_percentage)
+            #greedy = Problem(g,"greedy")
+            #save_result(greedy,edge_percentage)
+            #save_graph(greedy,edge_percentage)
+            #exaustive = Problem(g,"exaustive")
+            #save_result(exaustive,edge_percentage)
+            #save_graph(exaustive,edge_percentage)
             randomized = Problem(g, "randomized")
             save_result(randomized,edge_percentage)
             save_graph(randomized,edge_percentage)
@@ -44,7 +41,7 @@ def create_graphs():
 
 def save_result(p, edge_percentage):
     with open('results.txt', 'a') as results:
-        results.write("{: <12} | {: <10} | {: <15} | {: <16} | {: >20}\n".format(p.type,len(p.graph.vertices),edge_percentage,p.counter,p.time))
+        results.write("{: <12} | {: <10} | {: <15} | {: <16} | {: <15} | {: <15} | {: >20}\n".format(p.type,len(p.graph.vertices),edge_percentage,p.counter,len(p.result),p.iterations,p.time))
 
 
 def save_graph(p, edge_percentage):
@@ -63,7 +60,7 @@ def save_graph(p, edge_percentage):
     edges = g.edges()
     colors = [g[u][v]['color'] for u,v in edges]
     weights = [g[u][v]['weight'] for u,v in edges]
-    nx.draw(g, nx.get_node_attributes(g, 'pos'), edge_color=colors, width=weights, with_labels=True, node_size=400)
+    nx.draw(g, nx.get_node_attributes(g, 'pos'), edge_color=colors, width=weights, with_labels=True, node_size=250)
     f.savefig(f"graphs/V{len(vertices)}_{edge_percentage}%_{p.type}.png")
     plt.close('all')
 
