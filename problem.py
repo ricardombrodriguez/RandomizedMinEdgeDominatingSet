@@ -72,7 +72,9 @@ class Problem:
             result, iteration_counter = self.random_iteration(adjacency_list=deepcopy(self.graph.adjacency_list))
             best_result = result if len(result) < len(best_result) or not best_result else best_result
             iteration += 1
-            counter += iteration_counter + 1
+            counter += iteration_counter
+        print("counter", counter)
+        print(self.iterations)
         return (best_result, counter)
 
     def random_iteration(self, adjacency_list):
@@ -80,6 +82,7 @@ class Problem:
         result = []
         counter = 0
         remaining_vertices = len(adjacency_list.keys())
+        counter += 2
         while remaining_vertices:
             v1 = choice(list(adjacency_list.keys()))
             v2 = adjacency_list[v1][randint(0,len(adjacency_list[v1])-1)]
@@ -95,8 +98,9 @@ class Problem:
                 if not adjacency_list[k]:
                     del adjacency_list[k]    
                     remaining_vertices -= 1
+                counter += 3
             result.append(edge)
-            counter += 4
+            counter += 13
         return result, counter
         
 
